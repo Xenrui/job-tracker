@@ -1,4 +1,4 @@
-const InputField = ({ type, label, placeholder }) => (
+const InputField = ({ type, label, placeholder, value, onChange }) => (
   <div>
     <label className="block text-sm font-medium text-gray-600 mb-1">
       {label}
@@ -6,6 +6,8 @@ const InputField = ({ type, label, placeholder }) => (
     <input
       type={type}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
       className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-500"
     />
   </div>

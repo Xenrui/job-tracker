@@ -15,7 +15,7 @@ const AuthForm = ({ title, buttonText }) => {
       console.log("User submitted:", { email, password });
 
       // ✅ Redirect to homepage or dashboard
-      navigate("/dashboard");
+      // navigate("/dashboard");
     } else {
       alert("Please fill in all fields.");
     }
