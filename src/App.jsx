@@ -1,12 +1,12 @@
-import './App.css'
-import React  from 'react'
-import LoginForm from './components/LoginForm'
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
-  return(
-    <div>
-      <LoginForm/>
-    </div>
-  )
-}
-export default App
+  return (
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+    </Routes>
+  );
+};
+
+export default App;

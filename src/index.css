@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+* {
+  font: 'Avenir', sans-serif;
+}
+
+body,
+html {
+  width: 100%;
+  margin: 0;
+  background-color: #222;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
