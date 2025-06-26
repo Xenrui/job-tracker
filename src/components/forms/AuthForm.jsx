@@ -5,33 +5,102 @@ import SubmitButton from "./SubmitButton";
 
 const AuthForm = ({ title, buttonText }) => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "error" or "success"
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const isSignup = title === "Sign Up";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (email && password) {
-      console.log("User submitted:", { email, password });
+    // Sign Up
+    if (isSignup) {
+      if (email && username && password) {
+        try {
+          const res = await fetch("http://localhost/job-application-tracker/backend/signup.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, username, password }),
+          });
 
-      // ✅ Redirect to homepage or dashboard
-      // navigate("/dashboard");
+          const data = await res.json();
+          if (res.ok) {
+            setMessage("Signup successful! Please login.");
+            setMessageType("success");
+            setTimeout(() => navigate("/login"), 1500);
+          } else {
+            setMessage(data.error || "Signup failed");
+            setMessageType("error");
+          }
+        } catch (error) {
+          setMessage("Error connecting to server");
+          setMessageType("error");
+        }
+      } else {
+        setMessage("Please fill in all fields");
+        setMessageType("error");
+      }
     } else {
-      alert("Please fill in all fields.");
+      // Login
+      if (username && password) {
+        try {
+          const res = await fetch("http://localhost/job-application-tracker/backend/login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            setMessage("Login successful!");
+            setMessageType("success");
+            navigate("/dashboard");
+          } else {
+            setMessage(data.error || "Login failed");
+            setMessageType("error");
+          }
+        } catch (error) {
+          setMessage("Error connecting to server");
+          setMessageType("error");
+        }
+      } else {
+        setMessage("Please fill in all fields");
+        setMessageType("error");
+      }
     }
   };
 
   return (
     <div className="w-full max-w-md px-8 py-12 bg-white rounded-3xl shadow-2xl">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">{title}</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">{title}</h2>
+
+      {message && (
+        <div className={`text-left p-6 py-3 mb-4 text-sm font-medium ${messageType === "error" ? "bg-red-100" : "bg-green-100"}`}>
+          {message}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {isSignup && (
+          <InputField
+            type="email"
+            label="Email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        )}
+
         <InputField
-          type="email"
-          label="Email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          label="Username"
+          placeholder="Enter your username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
 
         <InputField
@@ -46,10 +115,10 @@ const AuthForm = ({ title, buttonText }) => {
       </form>
 
       <p className="text-center text-sm text-gray-500 mt-6">
-        {title === "Login" ? (
-          <>Don't have an account? <span className="text-[#8dafa8] cursor-pointer hover:underline">Sign up</span></>
+        {isSignup ? (
+          <>Already have an account? <span className="text-cyan-600 cursor-pointer hover:underline" onClick={() => navigate("/login")}>Login</span></>
         ) : (
-          <>Already have an account? <span className="text-[#8dafa8] cursor-pointer hover:underline">Login</span></>
+          <>Don't have an account? <span className="text-cyan-600 cursor-pointer hover:underline" onClick={() => navigate("/signup")}>Sign up</span></>
         )}
       </p>
     </div>
