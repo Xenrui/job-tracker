@@ -76,7 +76,7 @@ const AuthForm = ({ title, buttonText }) => {
 
   return (
     <div className="w-full max-w-md px-8 py-12 bg-white rounded-3xl shadow-2xl">
-      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">{title}</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-[#191B41]">{title}</h2>
 
       {message && (
         <div className={`text-left p-6 py-3 mb-4 text-sm font-medium ${messageType === "error" ? "bg-red-100" : "bg-green-100"}`}>

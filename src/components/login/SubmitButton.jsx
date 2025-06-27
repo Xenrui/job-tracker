@@ -2,7 +2,7 @@ const SubmitButton = ({ text, onClick }) => (
   <button
     type="submit"
     onClick={onClick}
-    className="w-full bg-[#8dafa8] text-white py-2 rounded-lg hover:bg-cyan-600 transition"
+    className="w-full bg-[#191B41] text-white py-2 rounded-lg hover:bg-[#3A3FA4] transition"
   >
     {text}
   </button>
