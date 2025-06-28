@@ -37,13 +37,14 @@ const JobsTable = () => {
   }, []);
 
   const handleDeleteConfirm = (jobId) => {
-    fetch(`${API_BASE_URL}/delete_job.php?id=${jobId}`, {
+    console.log("Deleting job with ID:", jobId);
+    fetch(`${API_BASE_URL}/delete_job.php?job_id=${jobId}`, {
       method: "DELETE",
       credentials: "include",
     })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to delete job");
-        setJobs((prev) => prev.filter((job) => job.id !== jobId));
+        setJobs((prev) => prev.filter((job) => job.job_id !== jobId));
         setJobToDelete(null);
       })
       .catch((err) => {
@@ -123,7 +124,7 @@ const JobsTable = () => {
           ) : (
             jobs.map((job, idx) => (
               <tr
-                key={job.id}
+                key={job.job_id}
                 className={`${
                   idx % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-cyan-100 transition-colors duration-200 shadow-sm`}
@@ -161,7 +162,7 @@ const JobsTable = () => {
                         type="button"
                         aria-label={`Delete job at ${job.company}`}
                         className="text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 rounded p-1"
-                        onClick={() => setJobToDelete(job)}
+                        onClick={() => {setJobToDelete(job.job_id); console.log("Requesting delete for job ID:", job.job_id);}}
                         >
                         <FiTrash2 size={20} />
                     </button>

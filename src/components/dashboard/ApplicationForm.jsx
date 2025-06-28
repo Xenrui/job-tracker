@@ -44,7 +44,7 @@ useEffect(() => {
       : `${API_BASE_URL}/add_application.php`;
 
     const requestBody = isEdit
-      ? JSON.stringify({ ...payload, id: initialData.id })
+      ? JSON.stringify({ ...payload, job_id: initialData.job_id })
       : JSON.stringify(payload);
 
     try {
