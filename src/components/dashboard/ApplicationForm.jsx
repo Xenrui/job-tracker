@@ -131,7 +131,7 @@ useEffect(() => {
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700"
+              className="px-5 py-2 bg-[#191B41] text-white rounded hover:bg-cyan-700"
             >
               {isEdit ? "Save Changes" : "Add"}
             </button>

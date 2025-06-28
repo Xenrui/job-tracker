@@ -1,18 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
-* {
-  font: 'Avenir', sans-serif;
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
 }
 
-body,
-html {
-  width: 100%;
-  margin: 0;
-  background-color: #222;
+.wrapper {
+  @apply min-h-screen flex justify-between;
+  background-image: url('./assets/content-bg.png');
+  width: 100vw;
+  height: 100vh;
 }
 
-html,
-body,
-#root {
-  height: 100%;
+.sidebar {
+  @apply bg-[#191B41] min-h-screen flex flex-col justify-between items-center w-full md:w-1/5 shadow-lg;
+}
+
+.container {
+  @apply w-full md:w-4/5 flex flex-col items-center;
+}
+
+.line-separator {
+  @apply h-[1px] w-full bg-[#B39756] opacity-50;
 }

@@ -4,6 +4,8 @@ import ActivityList from "./ActivityList";
 import ApplicationForm from "./ApplicationForm";
 import HeaderPanel from "./Header";
 import API_BASE_URL from "../../config";
+import { FaHourglassHalf, FaUserCheck, FaGift } from "react-icons/fa";
+
 
 const HomePanel = () => {
   const [activities, setActivities] = useState({
@@ -45,20 +47,22 @@ const HomePanel = () => {
       <div className={showAddForm ? "pointer-events-none opacity-40 select-none" : ""}>
         {/* Top Panel */}
         <HeaderPanel onButtonClick={() => setShowAddForm(true)} />
-
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-20 pt-8">
-          <ApplicationCard
-            title="Total Applications"
-            count={
-              activities.Applied.length +
-              activities.Interviewed.length +
-              activities.Offered.length
-            }
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-20 pt-8">
           <ApplicationCard
             title="Pending Applications"
             count={activities.Applied.length}
+            icon={FaHourglassHalf}
+          />
+          <ApplicationCard
+            title="Total Interviewed"
+            count={activities.Interviewed.length}
+            icon={FaUserCheck}
+          />
+          <ApplicationCard
+            title="Total Offered"
+            count={activities.Offered.length}
+            icon={FaGift}
           />
         </div>
 
