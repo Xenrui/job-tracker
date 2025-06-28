@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
+import API_BASE_URL from "../../config";
 
 const AuthForm = ({ title, buttonText }) => {
   const [email, setEmail] = useState("");
@@ -16,13 +17,13 @@ const AuthForm = ({ title, buttonText }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Sign Up
     if (isSignup) {
       if (email && username && password) {
         try {
-          const res = await fetch("http://localhost/job-application-tracker/backend/signup.php", {
+          const res = await fetch(`${API_BASE_URL}/signup.php`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",   // <-- Added here
             body: JSON.stringify({ email, username, password }),
           });
 
@@ -44,18 +45,19 @@ const AuthForm = ({ title, buttonText }) => {
         setMessageType("error");
       }
     } else {
-      // Login
       if (username && password) {
         try {
-          const res = await fetch("http://localhost/job-application-tracker/backend/login.php", {
+          const res = await fetch(`${API_BASE_URL}/login.php`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",  // <-- Added here
             body: JSON.stringify({ username, password }),
           });
 
           const data = await res.json();
 
           if (res.ok) {
+            localStorage.setItem("username", username); // Save username here
             setMessage("Login successful!");
             setMessageType("success");
             navigate("/dashboard");

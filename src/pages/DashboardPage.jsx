@@ -1,8 +1,9 @@
 import React from 'react'
+import DashLayout from '../components/layout/DashLayout'
 
 const DashboardPage = () => {
   return (
-    <div className='item-center flex'>DashboardPage</div>
+    <DashLayout />
   )
 }
 
